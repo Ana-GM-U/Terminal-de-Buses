@@ -1,0 +1,132 @@
+classDiagram
+
+class Terminal{
+    - String nombre
+    - List<Bus> andenesLLegada
+    - List<Bus> andenesSalida
+    - Cola<Bus> busesLLegada
+    - Cola<Bus> busesSalida
+    + List<Compania> companias
+    
+
+    + Terminal(String nombre, List<Compania> companias) 
+    + getAndenesLLegada() int
+    + getAndenesSalida() int
+    + setAndenesLLegada() void
+    + setAndenesSalida() void
+    + agregarBusLlegada() void
+    + agregarBusSalida() void
+    + quitarBusLlegada() void
+    + quitarBusSalida() void
+}
+
+
+class Administrador{
+    Terminal terminal
+
+    + Administrador(Terminal terminal)
+    + asignarBusSalida() String
+    + asignarBusLlegada() String
+    + desasignarAndenesSalida() String
+    + desasignarAndenesLlegada() String
+    + asignarTiempoAnden(Bus bus, int tiempo) void
+
+}
+
+Administrador "1"o--"1" Terminal
+
+class Anden{
+    - boolean ocupado
+    - Bus bus
+
+    + Anden() 
+    + getOcupado() boolean
+    + getBus() Bus
+    + ocupar(Bus bus) void
+    + desocupar(Bus bus) void
+}
+
+Terminal "1..*"o--"1" Anden
+
+class Compania{
+    - String rut 
+    - String nombre
+    - List<Viaje> viajes
+    - List<Bus> buses
+
+    + Compania(String rut, String nombre, List<Viaje> viajes)
+    + getNombre() String
+    + getViajes() List<Viaje>
+    + agregarBus(Bus bus) void
+
+
+}
+
+Terminal "1..15"o--"1" Compania
+
+class Bus{
+    - String patente
+    - Viaje viaje
+    - Ayudante ayudante
+    - Chofer chofer1
+    - Chofer chofer2
+    - Tipo tipo
+
+    + Bus(String patente, Viaje viaje, Tipo tipo, Ayudante ayudante, Chofer chofer1)
+    + Bus(String patente, Viaje viaje, Tipo tipo, Ayudante ayudante, Chofer chofer1, Chofer chofer2)
+    + getPatente() String
+    + getViaje() Viaje
+    + getayudante() Ayudante
+    + getChofer1() Chofer
+    + getChofer2() Chofer
+    + getTipo() Tipo
+}
+
+class Tipo {
+    Enumeration*
+
+    MINIBUS
+    ESTANDAR
+    DLOBEPISO
+}
+
+class Viaje{
+    - int tiempo
+    - String origen
+    - String destino
+
+    + Viaje(int tiempo, String origen, String destino)
+    + getTiempo() int
+    + getOrigen() String
+    + getDestino() String
+    + setTiempo() void
+
+}
+
+Compania "1..15"o--"1" Bus
+Compania "1..*"o--"1" Viaje
+Bus "1"o--"1" Viaje
+Bus -- Tipo
+
+class Personal{
+    String rut
+    String nombre
+
+    + Personal(String rut, String nombre)
+    + getRut() String
+    + getNombre() String
+}
+
+class Chofer{
+    + Chofer(String rut, String nombre)
+}
+
+class Ayudante{
+    + Ayudante(String rut, String nombre)
+}
+
+Bus "1..2"o--"1" Chofer
+Bus "1"o--"1" Ayudante
+Personal <|-- Chofer
+Personal <|-- Ayudante
+

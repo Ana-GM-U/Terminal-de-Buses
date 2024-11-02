@@ -1,0 +1,99 @@
+classDiagram
+    class Terminal {
+        - List~Anden~ andenesLlegada
+        - List~Anden~ andenesSalida
+        - List~Empresa~ empresas
+        - Queue~Bus~ colaEsperaLlegada
+        - Queue~Bus~ colaEsperaSalida
+        + Terminal(int nAndenesLlegada, int mAndenesSalida)
+        + void agregarEmpresa(Empresa empresa)
+        + List~Empresa~ getEmpresas()
+        + void asignarAndenLlegada(Bus bus)
+        + void asignarAndenSalida(Bus bus)
+        + void avanzarTiempo()
+        + void imprimirEstadoTerminal()
+    }
+
+    class Empresa {
+        - String nombre
+        - List~HorarioBus~ horariosLlegada
+        - List~HorarioBus~ horariosSalida
+        + Empresa(String nombre)
+        + String getNombre()
+        + void agregarHorarioLlegada(int horaLlegada, Bus bus)
+        + void agregarHorarioSalida(int horaSalida, Bus bus)
+        + Bus obtenerBusLlegada(int horaActual)
+        + Bus obtenerBusSalida(int horaActual)
+    }
+
+    class Anden {
+        - int id
+        - boolean ocupado
+        - Bus busAsignado
+        - int tiempoEnAnden
+        + Anden(int id)
+        + int getId()
+        + Bus getBusAsignado()
+        + boolean isOcupado()
+        + void asignarBus(Bus bus)
+        + void liberar()
+        + void decrementarTiempoEstadia()
+    }
+
+    class Bus {
+        - String origen
+        - String destino
+        - int capacidad
+        - Personal chofer
+        - Personal ayudante
+        - Personal segundoChofer
+        + Bus(String origen, String destino, int capacidad, Personal chofer, Personal ayudante)
+        + Bus(String origen, String destino, int capacidad, Personal chofer, Personal ayudante, Personal segundoChofer)
+        + int calcularTiempoEstadia(int tipoAnden)
+        + String getOrigen()
+        + String getDestino()
+        + int getCapacidad()
+        + Personal getChofer()
+        + Personal getAyudante()
+        + Personal getSegundoChofer()
+    }
+
+    class HorarioBus {
+        - int hora
+        - Bus bus
+        + HorarioBus(int hora, Bus bus)
+        + int getHora()
+        + Bus getBus()
+    }
+
+    class Personal {
+        - String nombre
+        - String apellido
+        - String rol
+        + Personal(String nombre, String apellido, String rol)
+        + String getNombre()
+        + String getApellido()
+        + String getRol()
+        + String getNombreCompleto()
+    }
+
+    class Administrador {
+        - String nombre
+        - String rut
+        + Administrador(String nombre, String rut)
+        + Terminal crearTerminal(String horaApertura, String horaCierre, int nAndenesLlegada, int mAndenesSalida)
+        + void agregarHorarioLlegada(Empresa empresa, int horaLlegada, Bus bus)
+        + void agregarHorarioSalida(Empresa empresa, int horaSalida, Bus bus)
+        + void asignarTiempoEnAnden(Bus bus, int tiempoPequeno, int tiempoMedio, int tiempoGrande)
+    }
+
+    Terminal "1" --> "n" Empresa : "agregación"
+    Terminal "1" --* "n" Anden : "composición"
+    Empresa "1" --* "n" HorarioBus : "composición"
+    Anden "1" --* "1" Bus : "composición"
+    HorarioBus "1" --> "1" Bus : "agregación"
+    Bus "1" --> "1" Personal : "chofer"
+    Bus "1" --> "1" Personal : "ayudante"
+    Bus "1" --> "0..1" Personal : "segundoChofer"
+    Administrador "1" --> "1" Terminal : "crea"
+    Administrador "1" --> "1" Empresa : "agrega"

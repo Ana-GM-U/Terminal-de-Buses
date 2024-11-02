@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="802.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.Controlador">
+   <children>
+      <ScrollPane layoutX="-1.0" layoutY="-1.0" prefHeight="805.0" prefWidth="1282.0" style="-fx-background-color: FFFBE6;">
+         <content>
+            <BorderPane prefHeight="953.0" prefWidth="1270.0" style="-fx-background-color: #9A7E6F;">
+               <right>
+                  <VBox prefHeight="484.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="90.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </VBox>
+               </right>
+               <left>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+               </left>
+               <top>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="253.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/logo.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="Titulo" alignment="CENTER" prefHeight="150.0" prefWidth="1123.0" style="-fx-background-color: #54473F;" text="Terminal Arica    " textFill="WHITE">
+                                 <font>
+                                    <Font name="Bell MT" size="77.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="166.0" prefWidth="1280.0">
+                           <children>
+                              <ImageView fx:id="administrdorImg" fitHeight="128.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagenes/administradorImagen.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="botonAdministrador" mnemonicParsing="false" onAction="#abrirVentanaAdministrador" style="-fx-background-color: transparent; -fx-padding: 0;" />
+                              <Label prefHeight="99.0" prefWidth="72.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="companiaLabel" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="577.0" text="Compañia        ">
+                                 <font>
+                                    <Font name="Times New Roman" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="companiaComboBox" prefHeight="25.0" prefWidth="205.0" />
+                              <Label fx:id="modoLabel" alignment="CENTER" prefHeight="49.0" prefWidth="192.0" text="Modo" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Times New Roman" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="tipoTablaComboBox" prefHeight="25.0" prefWidth="212.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </top>
+               <bottom>
+                  <StackPane prefHeight="52.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
+               </bottom>
+               <center>
+                  <VBox fx:id="tablasAndenesVbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="entradaLabel" prefHeight="35.0" prefWidth="138.0" text="Entrada">
+                           <font>
+                              <Font name="Times New Roman" size="24.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaEntradas" prefHeight="1000.0" prefWidth="1080.0" style="-fx-background-color: #E9EED9;">
+                           <columns>
+                              <TableColumn fx:id="origen" prefWidth="166.0" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px; -fx-background-color: #CBD2A4;" text="Origen" />
+                              <TableColumn fx:id="horaSalidas" prefWidth="234.0" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px; -fx-background-color: #CBD2A4;" text="Hora" />
+                              <TableColumn fx:id="nose" prefWidth="234.0" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px;" text="Nose" />
+                              <TableColumn fx:id="destino21" prefWidth="171.5" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px;" text="Destino" />
+                           </columns>
+                        </TableView>
+                        <Label prefHeight="17.0" prefWidth="134.0">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="salidaLabel" text="Salida">
+                           <font>
+                              <Font name="Times New Roman" size="24.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaSalidas" prefHeight="1000.0" prefWidth="1080.0" style="-fx-background-color: #E9EED9;">
+                           <columns>
+                              <TableColumn fx:id="destino" minWidth="0.0" prefWidth="183.0" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px; -fx-background-color: #CBD2A4;" text="Destino" />
+                              <TableColumn fx:id="horaSalidas" minWidth="0.0" prefWidth="217.0" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px; -fx-background-color: #CBD2A4;" text="Hora" />
+                              <TableColumn fx:id="nose" prefWidth="234.0" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px;" text="nose" />
+                              <TableColumn fx:id="destino211" prefWidth="171.5" style="-fx-font-family: &quot;Times New Roman&quot;, Times, serif; -fx-font-size: 20px;" text="Destino" />
+                           </columns>
+                        </TableView>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                     </children>
+                  </VBox>
+               </center>
+            </BorderPane>
+         </content>
+      </ScrollPane>
+   </children>
+</Pane>

@@ -1,3 +1,4 @@
+package main;
 //import controladores.Controlador;
 
 import javafx.application.Application;
@@ -16,6 +17,7 @@ public class TerminalBuses extends Application{
         //controlador.setMainWindow(primaryStage);
         primaryStage.setTitle("App");
         primaryStage.setScene(new Scene(root));
+        //primaryStage.setResizable(false);
         primaryStage.show();
     }
 

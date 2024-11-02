@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.ControladorAdministradorTerminal">
+   <children>
+      <TabPane fx:id="tabPane" prefHeight="575.0" prefWidth="888.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="pestanaTerminal" style="-fx-background-color: #9A7E6F;" text="Terminal">
+               <content>
+                  <ScrollPane prefHeight="683.0" prefWidth="888.0">
+                     <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="596.0" prefWidth="876.0" style="-fx-background-color: #9A7E6F;">
+                           <children>
+                              <VBox layoutX="469.0" layoutY="80.0" prefHeight="435.0" prefWidth="372.0">
+                                 <children>
+                                    <Label prefHeight="97.0" prefWidth="235.0" text="Ingrese la compañia" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="companiaCampo">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox prefHeight="50.0" prefWidth="372.0">
+                                       <children>
+                                          <Button fx:id="agregarCompaniaBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Agregar compania" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Label prefHeight="29.0" prefWidth="105.0">
+                                             <font>
+                                                <Font name="Times New Roman" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="editarCompaniaBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Editar" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <ListView fx:id="listaCompaniasView" prefHeight="262.0" prefWidth="372.0" style="-fx-background-color: #cbd2a4;" VBox.vgrow="ALWAYS" />
+                                    <Label layoutX="10.0" layoutY="64.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="eliminarCompaniaBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Eliminar" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Label prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="BOTTOM_RIGHT" prefHeight="101.0" prefWidth="372.0">
+                                       <children>
+                                          <Label prefHeight="29.0" prefWidth="235.0">
+                                             <font>
+                                                <Font name="Times New Roman" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="adelanteBoton" mnemonicParsing="false" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #54473F;" text="Adelante" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="36.0" layoutY="86.0" prefHeight="272.0" prefWidth="390.0">
+                                 <children>
+                                    <Label prefHeight="42.0" prefWidth="382.0" text="Ingrese la cantidad de andenes de llegada" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="cantidadAndenLlegadaCampo">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label prefHeight="42.0" prefWidth="304.0" text="Ingrese la cantidad de andenes de salida" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="cantidadAndenSalidaCampo">
+                                       <font>
+                                          <Font name="Times New Roman" size="13.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label layoutX="10.0" layoutY="119.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox prefHeight="109.0" prefWidth="390.0">
+                                       <children>
+                                          <Button fx:id="ingresarAndenesBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Ingresar" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Label prefHeight="29.0" prefWidth="105.0">
+                                             <font>
+                                                <Font name="Times New Roman" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="editarAndenesBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Editar" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Label layoutX="36.0" layoutY="26.0" prefHeight="52.0" prefWidth="512.0" text="Terminal" textFill="WHITE">
+                                 <font>
+                                    <Font name="Bell MT" size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </content>
+          </Tab>
+            <Tab fx:id="pestanaCompania" style="-fx-background-color: #9A7E6F;" text="Compañias">
+               <content>
+                  <ScrollPane prefHeight="546.0" prefWidth="926.0">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="890.0" style="-fx-background-color: #9A7E6F;">
+                           <children>
+                              <Label layoutX="36.0" layoutY="26.0" prefHeight="52.0" prefWidth="512.0" text="Compañia " textFill="WHITE">
+                                 <font>
+                                    <Font name="Bell MT" size="36.0" />
+                                 </font>
+                              </Label>
+                              <VBox layoutX="477.0" layoutY="129.0" prefHeight="371.0" prefWidth="372.0">
+                                 <children>
+                                    <Label prefHeight="80.0" prefWidth="304.0" text="Ingrese el destino" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="destinoCampo" prefHeight="0.0" prefWidth="372.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox prefHeight="50.0" prefWidth="372.0">
+                                       <children>
+                                          <Button fx:id="ingresarDestinoBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Ingresar destino" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Label prefHeight="29.0" prefWidth="105.0">
+                                             <font>
+                                                <Font name="Times New Roman" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="editarDestinoBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Editar" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Label prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="listaDestinoView" prefHeight="262.0" prefWidth="372.0" style="-fx-background-color: #cbd2a4;" VBox.vgrow="ALWAYS" />
+                                    <Label layoutX="10.0" layoutY="64.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="eliminarDestinoBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Eliminar" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="37.0" layoutY="560.0" prefHeight="564.0" prefWidth="372.0">
+                                 <children>
+                                    <Label prefHeight="77.0" prefWidth="304.0" text="Ingrese el tiempo de llegada o salida" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="horaCampo" promptText="HH:MM">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox prefHeight="50.0" prefWidth="372.0">
+                                       <children>
+                                          <Button fx:id="ingresarHoraBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Ingresar hora" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Label prefHeight="29.0" prefWidth="105.0">
+                                             <font>
+                                                <Font name="Times New Roman" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="editarHoraBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Editar" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Label layoutX="10.0" layoutY="375.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="10.0" layoutY="64.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="listaHoraView" prefHeight="262.0" prefWidth="372.0" style="-fx-background-color: #cbd2a4;" VBox.vgrow="ALWAYS" />
+                                    <Label layoutX="10.0" layoutY="471.0" prefHeight="13.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="eliminarHoraBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Eliminar" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Label layoutX="10.0" layoutY="143.0" prefHeight="49.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="atrasBoton" mnemonicParsing="false" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #54473F;" text="Atrás" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="37.0" layoutY="85.0" prefHeight="424.0" prefWidth="372.0">
+                                 <children>
+                                    <Label prefHeight="81.0" prefWidth="390.0" text="Viajes" textFill="WHITE">
+                                       <font>
+                                          <Font name="Bell MT" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="80.0" prefWidth="372.0" text="Ingrese el origen" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="origenCampo">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox prefHeight="50.0" prefWidth="372.0">
+                                       <children>
+                                          <Button fx:id="ingresarOrigenBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Ingresar origen" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Label prefHeight="29.0" prefWidth="105.0">
+                                             <font>
+                                                <Font name="Times New Roman" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="editarOrigenBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Editar" textFill="WHITE">
+                                             <font>
+                                                <Font name="Times New Roman" size="14.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Label layoutX="10.0" layoutY="375.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ListView fx:id="listaOrigenView" prefHeight="262.0" prefWidth="372.0" style="-fx-background-color: #cbd2a4;" VBox.vgrow="ALWAYS" />
+                                    <Label layoutX="10.0" layoutY="64.0" prefHeight="29.0" prefWidth="235.0">
+                                       <font>
+                                          <Font name="Times New Roman" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="eliminarOrigenBoton" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #54473F;" text="Eliminar" textFill="WHITE">
+                                       <font>
+                                          <Font name="Times New Roman" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <Button fx:id="adelanteBoton1" layoutX="719.0" layoutY="1091.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="101.0" style="-fx-background-color: #54473F;" text="Adelante" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman" size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </content></ScrollPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
