@@ -23,14 +23,14 @@ public class ControladorAdministradorTerminal {
     private Tab pestanaTerminal;
 
     @FXML
-    private Tab pestanaCompania;
+    private Tab pestanaEmpresa;
 
 
     @FXML
     private Button adelanteBoton;
 
     @FXML
-    private Button agregarCompaniaBoton;
+    private Button agregarEmpresaBoton;
 
     @FXML
     private TextField cantidadAndenLlegadaCampo;
@@ -39,24 +39,24 @@ public class ControladorAdministradorTerminal {
     private TextField cantidadAndenSalidaCampo;
 
     @FXML
-    private TextField companiaCampo;
+    private TextField empresaCampo;
 
     @FXML
-    private Button editarAndenesBoton;
+    private Button editarHorasAndenesBoton;
 
     @FXML
-    private Button editarCompaniaBoton;
+    private Button editarEmpresaBoton;
 
     @FXML
-    private Button eliminarCompaniaBoton;
+    private Button eliminarEmpresaBoton;
 
     @FXML
-    private Button ingresarAndenesBoton;
+    private Button ingresarHorasAndenesBoton;
 
     @FXML
-    private ListView<String> listaCompaniaView;
+    private ListView<String> listaEmpresaView;
     
-    private ObservableList<String> listaCompanias = FXCollections.observableArrayList();
+    private ObservableList<String> listaEmpresas;
 
     @FXML
     private TextField origenCampo;
@@ -73,7 +73,7 @@ public class ControladorAdministradorTerminal {
     @FXML
     private ListView<String> listaOrigenView;
 
-    private ObservableList<String> listaOrigen = FXCollections.observableArrayList();
+    private ObservableList<String> listaOrigen;
 
     @FXML
     private TextField destinoCampo;
@@ -90,7 +90,7 @@ public class ControladorAdministradorTerminal {
     @FXML
     private ListView<String> listaDestinoView;
 
-    private ObservableList<String> listaDestino = FXCollections.observableArrayList();
+    private ObservableList<String> listaDestino;
 
     @FXML
     private TextField horaCampo;
@@ -107,7 +107,7 @@ public class ControladorAdministradorTerminal {
     @FXML
     private ListView<String> listaHoraView;
 
-    private ObservableList<String> listaHora = FXCollections.observableArrayList();
+    private ObservableList<String> listaHora;
 
     @FXML
     private Button atrasBoton;
@@ -115,52 +115,64 @@ public class ControladorAdministradorTerminal {
     @FXML
     private Button adelanteBoton1;
 
+    @FXML
+    private TextField horaAperturaCampo;
+
+    @FXML
+    private TextField horaCierreCampo;
+
 
     int cantidadAndenesLlegada;
     int cantidadAndenesSalida;
-    List<Compania> companias;
+    List<Empresa> empresas;
 
     @FXML
     public void initialize() {
         //tabPane.getSelectionModel().select(pestanaTerminal);
 
-        editarAndenesBoton.setDisable(true);
-        editarCompaniaBoton.setDisable(true);
-        eliminarCompaniaBoton.setDisable(true);
+        listaEmpresas = FXCollections.observableArrayList();
+        listaOrigen = FXCollections.observableArrayList();
+        listaDestino = FXCollections.observableArrayList();
+        listaHora = FXCollections.observableArrayList();
+        listaEmpresaView.setItems(listaEmpresas);
 
-        ingresarAndenesBoton.setOnAction(event -> {
-            agregarCantidadAndenes();
+        editarHorasAndenesBoton.setDisable(true);
+        editarEmpresaBoton.setDisable(true);
+        eliminarEmpresaBoton.setDisable(true);
+
+        ingresarHorasAndenesBoton.setOnAction(event -> {
+            agregarHorasAndenes();
             
         });
 
-        editarAndenesBoton.setOnAction(event -> {
+        editarHorasAndenesBoton.setOnAction(event -> {
             cantidadAndenLlegadaCampo.clear();
             cantidadAndenSalidaCampo.clear();
-            ingresarAndenesBoton.setDisable(false);
-            editarAndenesBoton.setDisable(true);
+            ingresarHorasAndenesBoton.setDisable(false);
+            editarHorasAndenesBoton.setDisable(true);
             cantidadAndenLlegadaCampo.setDisable(false);
             cantidadAndenSalidaCampo.setDisable(false);
         });
 
-        agregarCompaniaBoton.setOnAction(event -> {
-            agregarAList(companiaCampo, listaCompanias);
-            agregarCompaniaBoton.setDisable(true);
-            editarCompaniaBoton.setDisable(false);
-            companiaCampo.setDisable(true);
-            eliminarCompaniaBoton.setDisable(false);
+        agregarEmpresaBoton.setOnAction(event -> {
+            agregarAList(empresaCampo, listaEmpresas);
+            agregarEmpresaBoton.setDisable(true);
+            editarEmpresaBoton.setDisable(false);
+            empresaCampo.setDisable(true);
+            eliminarEmpresaBoton.setDisable(false);
         });
 
-        editarCompaniaBoton.setOnAction(event -> {
-            agregarCompaniaBoton.setDisable(false);
-            editarCompaniaBoton.setDisable(true);
-            companiaCampo.setDisable(false);
-            editarList(listaCompaniaView, companiaCampo, listaCompanias);
+        editarEmpresaBoton.setOnAction(event -> {
+            agregarEmpresaBoton.setDisable(false);
+            editarEmpresaBoton.setDisable(true);
+            empresaCampo.setDisable(false);
+            editarList(listaEmpresaView, empresaCampo, listaEmpresas);
         });
 
-        eliminarCompaniaBoton.setOnAction(event -> {
-            agregarCompaniaBoton.setDisable(false);
-            companiaCampo.setDisable(false);
-            eliminarDeList(listaCompaniaView, listaCompanias, companiaCampo);
+        eliminarEmpresaBoton.setOnAction(event -> {
+            agregarEmpresaBoton.setDisable(false);
+            empresaCampo.setDisable(false);
+            eliminarDeList(listaEmpresaView, listaEmpresas, empresaCampo);
         });
 
 
@@ -248,45 +260,55 @@ public class ControladorAdministradorTerminal {
         });
 
 
-        adelanteBoton.setOnAction(event -> {abrirPestanaCompanias(listaCompanias); System.out.println("ffgbhnmj,");});
+        adelanteBoton.setOnAction(event -> {abrirPestanaEmpresas(listaEmpresas); System.out.println("ffgbhnmj,");});
 
 
     }
 
 
-    private void agregarCantidadAndenes(){
-        if((!cantidadAndenLlegadaCampo.getText().isEmpty() && esEntero(cantidadAndenLlegadaCampo.getText()))){
-            if((!cantidadAndenSalidaCampo.getText().isEmpty() && esEntero(cantidadAndenSalidaCampo.getText()))){
-                int cantidadIngresadaLlegada = Integer.parseInt(cantidadAndenLlegadaCampo.getText().strip());
-                int cantidadIngresadaSalida = Integer.parseInt(cantidadAndenSalidaCampo.getText().strip());
-                if((0<cantidadIngresadaLlegada && cantidadIngresadaLlegada<15) && (0<cantidadIngresadaSalida && cantidadIngresadaSalida<15) ){
-                    cantidadAndenesLlegada =cantidadIngresadaLlegada;
-                    cantidadAndenesSalida = cantidadIngresadaLlegada;
-                    ingresarAndenesBoton.setDisable(true);
-                    editarAndenesBoton.setDisable(false);
-                    cantidadAndenLlegadaCampo.setDisable(true);
-                    cantidadAndenSalidaCampo.setDisable(true);
+    private void agregarHorasAndenes(){
+        if(validarHora(horaAperturaCampo.getText()) && validarHora(horaCierreCampo.getText())){
+    
+            if((!cantidadAndenLlegadaCampo.getText().isEmpty() && esEntero(cantidadAndenLlegadaCampo.getText()))){
+                if((!cantidadAndenSalidaCampo.getText().isEmpty() && esEntero(cantidadAndenSalidaCampo.getText()))){
+                    int cantidadIngresadaLlegada = Integer.parseInt(cantidadAndenLlegadaCampo.getText().strip());
+                    int cantidadIngresadaSalida = Integer.parseInt(cantidadAndenSalidaCampo.getText().strip());
+                    if((0<cantidadIngresadaLlegada && cantidadIngresadaLlegada<15) && (0<cantidadIngresadaSalida && cantidadIngresadaSalida<15) ){
+                        cantidadAndenesLlegada =cantidadIngresadaLlegada;
+                        cantidadAndenesSalida = cantidadIngresadaLlegada;
+                        ingresarHorasAndenesBoton.setDisable(true);
+                        editarHorasAndenesBoton.setDisable(false);
+                        cantidadAndenLlegadaCampo.setDisable(true);
+                        cantidadAndenSalidaCampo.setDisable(true);
+                    }
+                    else{
+                        abrirVentanaError("Cantidad/es inválida/s");
+                        cantidadAndenLlegadaCampo.clear();
+                        cantidadAndenSalidaCampo.clear();
+                    }
                 }
                 else{
                     abrirVentanaError("Cantidad/es inválida/s");
                     cantidadAndenLlegadaCampo.clear();
                     cantidadAndenSalidaCampo.clear();
+                    ingresarHorasAndenesBoton.setDisable(false);
+                    editarHorasAndenesBoton.setDisable(true);
                 }
             }
             else{
                 abrirVentanaError("Cantidad/es inválida/s");
                 cantidadAndenLlegadaCampo.clear();
                 cantidadAndenSalidaCampo.clear();
-                ingresarAndenesBoton.setDisable(false);
-                editarAndenesBoton.setDisable(true);
+                ingresarHorasAndenesBoton.setDisable(false);
+                editarHorasAndenesBoton.setDisable(true);
             }
         }
         else{
-            abrirVentanaError("Cantidad/es inválida/s");
-            cantidadAndenLlegadaCampo.clear();
-            cantidadAndenSalidaCampo.clear();
-            ingresarAndenesBoton.setDisable(false);
-            editarAndenesBoton.setDisable(true);
+            abrirVentanaError("Hora inválida");
+            horaAperturaCampo.clear();
+            horaCierreCampo.clear();
+            ingresarHorasAndenesBoton.setDisable(false);
+            editarHorasAndenesBoton.setDisable(true);
         }
     }
 
@@ -346,12 +368,12 @@ public class ControladorAdministradorTerminal {
     }
 
 
-    public void abrirPestanaCompanias(ObservableList<String> listaCompanias){
+    public void abrirPestanaEmpresas(ObservableList<String> listaEmpresas){
 
         System.out.println("eee");
-        pestanaCompania.setDisable(false);
+        pestanaEmpresa.setDisable(false);
         pestanaTerminal.setDisable(true);
-        tabPane.getSelectionModel().select(pestanaCompania);
+        tabPane.getSelectionModel().select(pestanaEmpresa);
 
     }
 

@@ -1,31 +1,55 @@
 package clases;
 
-public class Anden {
-    private boolean ocupado = false;
-    private Bus bus;
+import java.io.Serializable;
+import java.util.Random;
 
-    public Anden(){
+public class Anden implements Serializable{
+    private static final long serialVersionUID = 2L;
+
+    private int id;
+    private boolean ocupado;
+    private Bus busAsignado;
+    private int tiempoEnAnden;
+    private static final Random rand = new Random(); 
+
+
+    public Anden(int id) {
+        this.id = id;
         this.ocupado = false;
     }
-    public boolean getOcupado(){
-        return this.ocupado;
-    }
-    public Bus getBus(){
-        return this.bus;
+
+    public int getId(){
+        return id;
     }
 
-    public void ocupar(Bus bus){
-        if(this.ocupado != true){
-            this.ocupado = true;
-            this.bus = bus;
-        }
+    public Bus getBusAsignado(){
+        return busAsignado;
     }
 
-    public void desocupar(){
-        if(this.ocupado != false){
-            this.ocupado = false;
-            this.bus = null;
-        }
+    public boolean isOcupado() {
+        return ocupado;
     }
-    
+
+    public void asignarBus(Bus bus) {
+        this.busAsignado = bus;
+        this.tiempoEnAnden = calcularTiempoEstadia();
+        this.ocupado = true;
+    }
+
+    public void liberar() {
+        this.busAsignado = null;
+        this.ocupado = false;
+    }
+
+    public void decrementarTiempoEstadia() {
+        if (tiempoEnAnden > 0) tiempoEnAnden--;
+        if (tiempoEnAnden == 0) liberar();
+    }
+
+    public int calcularTiempoEstadia() {
+        int tiempo = busAsignado.getTiempoEstadia();
+        
+        return rand.nextInt(5) + tiempo - 5;
+        
+    }
 }

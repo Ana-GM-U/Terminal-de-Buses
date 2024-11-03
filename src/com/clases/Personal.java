@@ -1,31 +1,42 @@
 package clases;
 
-public class Personal {
-    private String rut;
+import java.io.Serializable;
+
+public class Personal implements Serializable{
+    private static final long serialVersionUID = 6L;
+
     private String nombre;
+    private String apellido;
+    private String rol;
 
-    public Personal(String rut, String nombre) {
-        this.rut = rut;
+    public Personal(String nombre, String apellido, String rol) {
         this.nombre = nombre;
-    }
-
-    public String getRut() {
-        return rut;
+        this.apellido = apellido;
+        this.rol = rol;
     }
 
     public String getNombre() {
         return nombre;
     }
-}
 
-class Chofer extends Personal {
-    public Chofer(String rut, String nombre) {
-        super(rut, nombre);
+    public String getApellido() {
+        return apellido;
     }
-}
 
-class Ayudante extends Personal {
-    public Ayudante(String rut, String nombre) {
-        super(rut, nombre);
+    public String getRol() {
+        return rol;
+    }
+
+    public String getNombreCompleto() {
+        return nombre + " " + apellido;
+    }
+
+    @Override
+    public String toString() {
+        return "Personal{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", rol='" + rol + '\'' +
+                '}';
     }
 }

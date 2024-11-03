@@ -1,61 +1,106 @@
 package clases;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
+public class Terminal implements Serializable{
+    private static final long serialVersionUID = 7L;
 
-public class Terminal {
-    private String nombre;
-    private List<Anden> andenesLLegada = new ArrayList<>();
-    private List<Anden> andenesSalida = new ArrayList<>();
-    private Cola<Bus> busesLLegada;
-    private Cola<Bus> busesSalida;
-    private List<Compania> companias;
+    private int horaApertura;
+    private int horaCierre;
+    private List<Anden> andenesLlegada;
+    private List<Anden> andenesSalida;
+    private List<Empresa> empresas;
+    private Queue<Bus> colaEsperaLlegada;
+    private Queue<Bus> colaEsperaSalida;
 
-    public Terminal(String nombre, List<Compania> companias, List<Anden> andenesLLegada, List<Anden> andenesSalida){
-        this.nombre = nombre;
-        for(int c = 0;c < companias.size(); c++){
-            this.companias.add(companias.get(c));
+    public Terminal(int horaApertura, int horaCierre, int nAndenesLlegada, int mAndenesSalida) {
+        this.horaApertura = horaApertura;
+        this.horaCierre = horaCierre;
+    
+        andenesLlegada = new ArrayList<>(nAndenesLlegada);
+        for (int i = 1; i <= nAndenesLlegada; i++) {
+            andenesLlegada.add(new Anden(i));
         }
-
-        for(int l = 0;l < andenesLLegada.size(); l++){
-            this.andenesLLegada.add(andenesLLegada.get(l));
+        andenesSalida = new ArrayList<>(mAndenesSalida);
+        for (int i = 1; i <= mAndenesSalida; i++) {
+            andenesSalida.add(new Anden(i));
         }
+        empresas = new ArrayList<>();
+        colaEsperaLlegada = new LinkedList<>();
+        colaEsperaSalida = new LinkedList<>();
+    }
 
-        for(int s = 0;s < andenesSalida.size(); s++){
-            this.andenesSalida.add(andenesSalida.get(s));
+    public void agregarCompania(Empresa compania) {
+        empresas.add(compania);
+    }
+
+    public int getHoraApertura(){
+        return horaApertura;
+    }
+
+    public int getHoraCierre(){
+        return horaCierre;
+    }
+
+    public List<Empresa> getEmpresas() {
+        return empresas;
+    }
+
+    public void asignarAndenLlegada(Bus bus) {
+        for (Anden anden : andenesLlegada) {
+            if (!anden.isOcupado()) {
+                anden.asignarBus(bus);
+                return;
+            }
         }
-    } 
-
-    public List<Anden> getAndenesLLegada(){
-        return this.andenesLLegada;
+        colaEsperaLlegada.add(bus);
     }
 
-    public List<Anden> getAndenesSalida(){
-        return this.andenesSalida;
-    }
-
-    public void setAndenesLLegada(List<Anden> andenesLLegada){
-        this.andenesLLegada.clear();
-        for(int l = 0;l < andenesLLegada.size(); l++){
-            this.andenesLLegada.add(andenesLLegada.get(l));
+    public void asignarAndenSalida(Bus bus) {
+        for (Anden anden : andenesSalida) {
+            if (!anden.isOcupado()) {
+                anden.asignarBus(bus);
+                return;
+            }
         }
-        
+        colaEsperaSalida.add(bus); 
     }
 
-    public void setAndenesSalida(List<Anden> andenesSalida){
-        this.andenesSalida.clear();
-        for(int s = 0;s < andenesSalida.size(); s++){
-            this.andenesSalida.add(andenesSalida.get(s));
+    public void avanzarTiempo() {
+        for (Anden anden : andenesLlegada) {
+            anden.decrementarTiempoEstadia(); 
+            if (!anden.isOcupado() && !colaEsperaLlegada.isEmpty()) {
+                Bus busEnEspera = colaEsperaLlegada.poll();
+                anden.asignarBus(busEnEspera); 
+            }
+        }
+    
+        for (Anden anden : andenesSalida) {
+            anden.decrementarTiempoEstadia();
+            if (!anden.isOcupado() && !colaEsperaSalida.isEmpty()) {
+                Bus busEnEspera = colaEsperaSalida.poll();
+                anden.asignarBus(busEnEspera);
+            }
         }
     }
+    
 
-    public void agregarBusLlegada(Bus bus){
-        this.busesLLegada.enque(bus);
+    public void imprimirEstadoTerminal() {
+        System.out.println("Estado del Terminal:");
+        System.out.println("Andenes de Llegada:");
+        for (Anden anden : andenesLlegada) {
+            System.out.println("Andén " + anden.getId() + ": " + (anden.isOcupado() ? "Ocupado" : "Libre"));
+        }
+        System.out.println("Andenes de Salida:");
+        for (Anden anden : andenesSalida) {
+            System.out.println("Andén " + anden.getId() + ": " + (anden.isOcupado() ? "Ocupado" : "Libre"));
+        }
+        System.out.println("Cola de Espera de Llegada: " + colaEsperaLlegada.size() + " buses en espera.");
+        System.out.println("Cola de Espera de Salida: " + colaEsperaSalida.size() + " buses en espera.");
     }
-
-    public void agregarBusSalida(Bus bus){
-        this.busesSalida.enque(bus);
-    }
-   
 }

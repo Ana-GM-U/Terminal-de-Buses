@@ -16,8 +16,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.Queue;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import clases.*;
 
@@ -26,18 +32,14 @@ public class Controlador {
     @FXML
     private Label titulo;
 
-    
     @FXML
     private ComboBox<String> tipoTablaComboBox;
 
     @FXML
-    private ComboBox<String> companiaComboBox;
+    private ComboBox<String> empresaComboBox;
 
     @FXML
     private VBox tablasHoriosVbox;
-
-    @FXML
-    private Label entradaLabel;
 
     @FXML
     private Button botonAdministrador;
@@ -46,27 +48,27 @@ public class Controlador {
     private ImageView administrdorImg;
 
     @FXML
-    private TableView<Viaje> tablaEntradas;
+    private TableView<HorarioBus> tablaEntradas;
 
     @FXML
-    private TableView<Viaje> tablaSalidas;
+    private TableView<HorarioBus> tablaSalidas;
 
     @FXML
-    private TableColumn<Viaje, String> origen;
+    private TableColumn<HorarioBus, String> origen;
     
     @FXML
-    private TableColumn<Viaje, String> destino;
+    private TableColumn<HorarioBus, String> destino;
 
     @FXML
-    private TableColumn<Viaje, String> horaEntradas;
+    private TableColumn<HorarioBus, String> horaEntradas;
 
     @FXML
-    private TableColumn<Viaje, String> horaSalidas;
+    private TableColumn<HorarioBus, String> horaSalidas;
 
 
     @FXML
     public void initialize() {
-        companiaComboBox.getItems().addAll("Compañía A", "Compañía B"); // Ejemplo de compañías
+        empresaComboBox.getItems().addAll("Compañía A", "Compañía B"); // Ejemplo de compañías
         tipoTablaComboBox.getItems().addAll("Horarios", "Andenes");
 
         botonAdministrador.setGraphic(administrdorImg);
@@ -95,4 +97,74 @@ public class Controlador {
     }
 
 
+    /*public void serializarLista(){
+        try (FileOutputStream fileOut = new FileOutputStream("personas.txt");
+             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+            objectOut.writeObject(listaPersonas);
+            System.out.println("La lista ha sido serializada y guardada en personas.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deserializarLista {
+        try (FileInputStream fileIn = new FileInputStream("personas.txt");
+             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+            listaPersonas = (ArrayList<Persona>) objectIn.readObject();
+            System.out.println("La lista ha sido deserializada:");
+            listaPersonas.forEach(System.out::println);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+  */  
+    public static <E> void serializarObjeto(E objeto, String nombreArchivo) { 
+        try (FileOutputStream fileOut = new FileOutputStream(nombreArchivo);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+            objectOut.writeObject(objeto);
+            //System.out.println("El objeto Persona ha sido serializado y guardado en persona.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <E> E deserializarObjeto(String nombreArchivo) { 
+        try (FileInputStream fileIn = new FileInputStream(nombreArchivo);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+            return (E) objectIn.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /* 
+    public void serializarCola() { 
+        try (FileOutputStream fileOut = new FileOutputStream("colaPersonas.txt");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
+            objectOut.writeObject(colaPersonas);
+            System.out.println("La cola ha sido serializada y guardada en colaPersonas.txt");
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+    }
+
+    public void deserializarCola() { 
+        try (FileInputStream fileIn = new FileInputStream("colaPersonas.txt");
+             ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+            colaPersonas = (Queue<Persona>) objectIn.readObject();
+            System.out.println("La cola deserializada es:");
+            colaPersonas.forEach(System.out::println);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+*/
+
+    public static boolean estaVacio(String nombreArchivo){
+        File archivo = new File(nombreArchivo);
+        return archivo.length() == 0;
+    }
 }

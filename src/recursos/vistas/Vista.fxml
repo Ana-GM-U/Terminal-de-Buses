@@ -60,13 +60,13 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="companiaLabel" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="577.0" text="Compañia        ">
+                              <Label alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="577.0" text="Empresa     ">
                                  <font>
                                     <Font name="Times New Roman" size="24.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="companiaComboBox" prefHeight="25.0" prefWidth="205.0" />
-                              <Label fx:id="modoLabel" alignment="CENTER" prefHeight="49.0" prefWidth="192.0" text="Modo" textAlignment="CENTER">
+                              <ComboBox fx:id="empresaComboBox" prefHeight="25.0" prefWidth="205.0" />
+                              <Label alignment="CENTER" prefHeight="49.0" prefWidth="192.0" text="Modo" textAlignment="CENTER">
                                  <font>
                                     <Font name="Times New Roman" size="24.0" />
                                  </font>
@@ -83,7 +83,7 @@
                <center>
                   <VBox fx:id="tablasAndenesVbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="entradaLabel" prefHeight="35.0" prefWidth="138.0" text="Entrada">
+                        <Label fx:id="entradaLabel" prefHeight="35.0" prefWidth="138.0" text="Llegada">
                            <font>
                               <Font name="Times New Roman" size="24.0" />
                            </font>

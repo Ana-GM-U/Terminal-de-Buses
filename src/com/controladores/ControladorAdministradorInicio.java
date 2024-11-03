@@ -1,6 +1,10 @@
 package controladores;
 
+import java.io.File;
 import java.io.IOException;
+
+import clases.*;
+import controladores.Controlador;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,35 +25,124 @@ public class ControladorAdministradorInicio {
     private TextField contrasenaCampo;
 
     @FXML
-    private TextField rutCampo;
+    private TextField contrasenaCampo1;
 
     @FXML
     private Button ingresarBoton;
 
     @FXML
+    private Button iniciarBoton;
+
+    @FXML
+    private TextField nombreCampo;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab pestanaInicioSesion;
+
+    @FXML
+    private Tab pestanaRegistro;
+
+    @FXML
+    private TextField rutCampo;
+
+    @FXML
+    private TextField rutCampo1;
+
+    @FXML
+    private Button registrarBoton;
+
+    Administrador administrador;
+
+    @FXML
     public void initialize() {
-        ingresarBoton.setOnAction(event -> {
-            validarIngreso(rutCampo.getText().strip(), contrasenaCampo.getText().strip() );
+        if(!Controlador.estaVacio("src/recursos/archivos/administrador.txt")){
+            administrador = Controlador.deserializarObjeto("src/recursos/archivos/administrador.txt");
+        }
+        iniciarBoton.setOnAction(event -> {
+            validarInicio(rutCampo.getText().strip(), contrasenaCampo.getText().strip() );
         });
+
+        registrarBoton.setOnAction(event -> {
+            abrirPestanaResgistro();
+        });
+
+        ingresarBoton.setOnAction(event -> {
+            validarIngreso(nombreCampo.getText().strip(), rutCampo1.getText().strip(), contrasenaCampo1.getText().strip());
+        });
+
 
     }
 
     @FXML
-    public void validarIngreso(String rut, String contrasena) {
-        if(validarRut(rut)){
-            if(contrasena.equals("9")){
-                abrirVentanaDatos();
+    public void validarInicio(String rut, String contrasena) {
+        if(administrador != null){
+            if(validarRut(rut)){
+                if(contrasena.equals(administrador.getContrasena())){
+                    abrirVentanaDatos();
+                }
+                else{
+                    abrirVentanaError("Contraseña incorrecta");
+                    contrasenaCampo.clear();
+                }
             }
             else{
                 abrirVentanaError("Rut inválido");
-                contrasenaCampo.clear();
-            }
+                rutCampo.clear();
+                
+            }          
         }
         else{
-            abrirVentanaError("Contraseña incorrecta");
+            abrirVentanaError("No se ha registrado un administrador");
             rutCampo.clear();
+            contrasenaCampo.clear();
         }
+    
     }
+
+    public void validarIngreso(String nombre, String rut, String contrasena){
+        if(administrador == null){
+            if(nombre!=""){
+                if(validarRut(rut)){
+                    if(contrasena.length()==8){
+                        System.out.println(contrasena.length());
+                        nombreCampo.clear();
+                        rutCampo1.clear();
+                        contrasenaCampo1.clear();
+                        administrador = new Administrador(nombre, rut, contrasena);
+                        Controlador.serializarObjeto(administrador, "src/recursos/archivos/administrador.txt");
+                        abrirPestanaInicio();
+                    }
+                    else{
+                        abrirVentanaError("Contraseña inválida");
+                        contrasenaCampo1.clear();
+                    }
+                }
+                else{
+                    abrirVentanaError("Rut inválido");
+                    rutCampo1.clear();
+                }
+            }
+            else{
+                abrirVentanaError("Nombre inválido");
+                nombreCampo.clear();
+            }
+
+        }
+        else{
+            abrirVentanaError("Ya se ha registrado un administrador");
+            pestanaRegistro.setDisable(true);
+            pestanaInicioSesion.setDisable(false);
+            nombreCampo.clear();
+            rutCampo1.clear();
+            contrasenaCampo1.clear();
+            abrirPestanaInicio();
+        }
+   
+    }
+
 
     boolean validarRut(String rut){
         /*try {
@@ -68,6 +163,19 @@ public class ControladorAdministradorInicio {
         }*/
 
         return true;
+    }
+
+
+    public void abrirPestanaResgistro(){
+        pestanaInicioSesion.setDisable(true);
+        pestanaRegistro.setDisable(false);
+        tabPane.getSelectionModel().select(pestanaRegistro);
+    }
+
+    public void abrirPestanaInicio(){
+        pestanaInicioSesion.setDisable(false);
+        pestanaRegistro.setDisable(true);
+        tabPane.getSelectionModel().select(pestanaInicioSesion);
     }
 
     @FXML
