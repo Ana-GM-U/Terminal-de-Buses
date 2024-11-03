@@ -1,5 +1,6 @@
 package controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
@@ -25,9 +27,11 @@ public class ControladorAdministradorTerminal {
     @FXML
     private Tab pestanaEmpresa;
 
+    @FXML
+    private Tab pestanaEmpresa1;
 
     @FXML
-    private Button adelanteBoton;
+    private Button siguienteBoton;
 
     @FXML
     private Button agregarEmpresaBoton;
@@ -54,7 +58,7 @@ public class ControladorAdministradorTerminal {
     private Button ingresarHorasAndenesBoton;
 
     @FXML
-    private ListView<String> listaEmpresaView;
+    private ListView<String> listaEmpresasView;
     
     private ObservableList<String> listaEmpresas;
 
@@ -92,6 +96,14 @@ public class ControladorAdministradorTerminal {
 
     private ObservableList<String> listaDestino;
 
+
+
+    @FXML
+    private TextField horaAperturaCampo;
+
+    @FXML
+    private TextField horaCierreCampo;
+
     @FXML
     private TextField horaCampo;
 
@@ -110,35 +122,51 @@ public class ControladorAdministradorTerminal {
     private ObservableList<String> listaHora;
 
     @FXML
-    private Button atrasBoton;
+    private Label empresaLabel;
 
     @FXML
-    private Button adelanteBoton1;
+    private TextField  duracionCampo;
 
     @FXML
-    private TextField horaAperturaCampo;
+    private Button ingresarDuracionBoton;
 
     @FXML
-    private TextField horaCierreCampo;
+    private Button editarDuracionBoton;
 
 
+    @FXML
+    private Button  eliminarDuracionBoton;
+
+    @FXML
+    private ListView<String> listaDuracionView;
+
+    private ObservableList<String> listaDuracion;
+
+    @FXML
+    private Button siguienteBoton1;
+    
     int cantidadAndenesLlegada;
     int cantidadAndenesSalida;
-    List<Empresa> empresas;
+    int horaApertura;
+    int horaCierre;
+    List<Empresa> empresas = new ArrayList<>();
 
     @FXML
     public void initialize() {
-        //tabPane.getSelectionModel().select(pestanaTerminal);
+        editarHorasAndenesBoton.setDisable(true);
+        tabPane.getSelectionModel().select(pestanaTerminal);
 
         listaEmpresas = FXCollections.observableArrayList();
         listaOrigen = FXCollections.observableArrayList();
         listaDestino = FXCollections.observableArrayList();
         listaHora = FXCollections.observableArrayList();
-        listaEmpresaView.setItems(listaEmpresas);
+        listaDuracion = FXCollections.observableArrayList();;
 
-        editarHorasAndenesBoton.setDisable(true);
-        editarEmpresaBoton.setDisable(true);
-        eliminarEmpresaBoton.setDisable(true);
+        listaEmpresasView.setItems(listaEmpresas);
+        listaOrigenView.setItems(listaOrigen);
+        listaDestinoView.setItems(listaDestino);
+        listaHoraView.setItems(listaHora);
+        listaDuracionView.setItems(listaDuracion);
 
         ingresarHorasAndenesBoton.setOnAction(event -> {
             agregarHorasAndenes();
@@ -146,77 +174,49 @@ public class ControladorAdministradorTerminal {
         });
 
         editarHorasAndenesBoton.setOnAction(event -> {
-            cantidadAndenLlegadaCampo.clear();
-            cantidadAndenSalidaCampo.clear();
             ingresarHorasAndenesBoton.setDisable(false);
             editarHorasAndenesBoton.setDisable(true);
             cantidadAndenLlegadaCampo.setDisable(false);
             cantidadAndenSalidaCampo.setDisable(false);
+            horaAperturaCampo.setDisable(false);
+            horaCierreCampo.setDisable(false);
         });
 
         agregarEmpresaBoton.setOnAction(event -> {
             agregarAList(empresaCampo, listaEmpresas);
-            agregarEmpresaBoton.setDisable(true);
-            editarEmpresaBoton.setDisable(false);
-            empresaCampo.setDisable(true);
-            eliminarEmpresaBoton.setDisable(false);
         });
 
         editarEmpresaBoton.setOnAction(event -> {
-            agregarEmpresaBoton.setDisable(false);
-            editarEmpresaBoton.setDisable(true);
-            empresaCampo.setDisable(false);
-            editarList(listaEmpresaView, empresaCampo, listaEmpresas);
+            editarList(listaEmpresasView, empresaCampo, listaEmpresas);
         });
 
         eliminarEmpresaBoton.setOnAction(event -> {
-            agregarEmpresaBoton.setDisable(false);
-            empresaCampo.setDisable(false);
-            eliminarDeList(listaEmpresaView, listaEmpresas, empresaCampo);
+            eliminarDeList(listaEmpresasView, listaEmpresas, empresaCampo);
         });
 
 
         ingresarOrigenBoton.setOnAction(event -> {
             agregarAList(origenCampo, listaOrigen);
-            ingresarOrigenBoton.setDisable(true);
-            editarOrigenBoton.setDisable(false);
-            origenCampo.setDisable(true);
-            eliminarOrigenBoton.setDisable(false);
         });
 
         editarOrigenBoton.setOnAction(event -> {
-            ingresarOrigenBoton.setDisable(false);
-            editarOrigenBoton.setDisable(true);
-            origenCampo.setDisable(false);
             editarList(listaOrigenView, origenCampo, listaOrigen);
         });
 
         eliminarOrigenBoton.setOnAction(event -> {
-            ingresarOrigenBoton.setDisable(false);
-            origenCampo.setDisable(false);
             eliminarDeList(listaOrigenView, listaOrigen, origenCampo);
         });
 
 
         ingresarDestinoBoton.setOnAction(event -> {
             agregarAList(destinoCampo, listaDestino);
-
-            ingresarDestinoBoton.setDisable(true);
-            editarDestinoBoton.setDisable(false);
-            destinoCampo.setDisable(true);
-            eliminarDestinoBoton.setDisable(false);
         });
 
         editarDestinoBoton.setOnAction(event -> {
-            ingresarDestinoBoton.setDisable(false);
-            editarDestinoBoton.setDisable(true);
-            destinoCampo.setDisable(false);
             editarList(listaDestinoView, destinoCampo, listaDestino);
         });
 
         eliminarDestinoBoton.setOnAction(event -> {
-            ingresarDestinoBoton.setDisable(false);
-            destinoCampo.setDisable(false);
             eliminarDeList(listaDestinoView, listaDestino, destinoCampo);
         });
 
@@ -224,10 +224,6 @@ public class ControladorAdministradorTerminal {
         ingresarHoraBoton.setOnAction(event -> {
             if(validarHora(horaCampo.getText())){
                 agregarAList(horaCampo, listaHora);
-                ingresarHoraBoton.setDisable(true);
-                editarHoraBoton.setDisable(false);
-                horaCampo.setDisable(true);
-                eliminarHoraBoton.setDisable(false);
             }
             else{
                 abrirVentanaError("Hora inválida");
@@ -236,9 +232,6 @@ public class ControladorAdministradorTerminal {
 
         editarHoraBoton.setOnAction(event -> {
             if(validarHora(horaCampo.getText())){
-                ingresarHoraBoton.setDisable(false);
-                editarDestinoBoton.setDisable(true);
-                horaCampo.setDisable(false);
                 editarList(listaHoraView, horaCampo, listaHora);
             }
             else{
@@ -248,8 +241,35 @@ public class ControladorAdministradorTerminal {
 
         eliminarHoraBoton.setOnAction(event -> {
             if(validarHora(horaCampo.getText())){
-                ingresarHoraBoton.setDisable(false);
-                horaCampo.setDisable(false);
+                eliminarDeList(listaHoraView, listaHora, horaCampo);
+                
+            }
+            else{
+                abrirVentanaError("Hora inválida");
+            }
+        
+        });
+
+        ingresarDuracionBoton.setOnAction(event -> {
+            if(validarHora(horaCampo.getText())){
+                agregarAList(horaCampo, listaHora);
+            }
+            else{
+                abrirVentanaError("Hora inválida");
+            }
+        });
+
+        editarDuracionBoton.setOnAction(event -> {
+            if(validarHora(horaCampo.getText())){
+                editarList(listaHoraView, horaCampo, listaHora);
+            }
+            else{
+                abrirVentanaError("Hora inválida");
+            }
+        });
+
+        editarDuracionBoton.setOnAction(event -> {
+            if(validarHora(horaCampo.getText())){
                 eliminarDeList(listaHoraView, listaHora, horaCampo);
                 
             }
@@ -260,8 +280,8 @@ public class ControladorAdministradorTerminal {
         });
 
 
-        adelanteBoton.setOnAction(event -> {abrirPestanaEmpresas(listaEmpresas); System.out.println("ffgbhnmj,");});
-
+        siguienteBoton.setOnAction(event -> {abrirPestanaEmpresa();});
+        siguienteBoton1.setOnAction(event -> {abrirPestanaEmpresa2(); System.out.println("ffgbhnmj,");});
 
     }
 
@@ -275,11 +295,14 @@ public class ControladorAdministradorTerminal {
                     int cantidadIngresadaSalida = Integer.parseInt(cantidadAndenSalidaCampo.getText().strip());
                     if((0<cantidadIngresadaLlegada && cantidadIngresadaLlegada<15) && (0<cantidadIngresadaSalida && cantidadIngresadaSalida<15) ){
                         cantidadAndenesLlegada =cantidadIngresadaLlegada;
-                        cantidadAndenesSalida = cantidadIngresadaLlegada;
+                        cantidadAndenesSalida = cantidadIngresadaSalida;
+                        Controlador.terminal  = new Terminal(horaApertura, horaCierre, cantidadIngresadaLlegada, cantidadIngresadaSalida);
                         ingresarHorasAndenesBoton.setDisable(true);
                         editarHorasAndenesBoton.setDisable(false);
                         cantidadAndenLlegadaCampo.setDisable(true);
                         cantidadAndenSalidaCampo.setDisable(true);
+                        horaAperturaCampo.setDisable(true);
+                        horaCierreCampo.setDisable(true);
                     }
                     else{
                         abrirVentanaError("Cantidad/es inválida/s");
@@ -310,6 +333,7 @@ public class ControladorAdministradorTerminal {
             ingresarHorasAndenesBoton.setDisable(false);
             editarHorasAndenesBoton.setDisable(true);
         }
+        return;
     }
 
     private void agregarAList(TextField ingreso, ObservableList<String> lista) {
@@ -321,6 +345,7 @@ public class ControladorAdministradorTerminal {
         else{
             abrirVentanaError("Ingreso inválido");
         }
+        return;
     }
     
     private void editarList(ListView<String> listView, TextField ingreso, ObservableList<String> lista) {
@@ -336,6 +361,7 @@ public class ControladorAdministradorTerminal {
         else{
             abrirVentanaError("Ingreso inválido");
         }
+        return;
     }
     
     private void eliminarDeList(ListView<String> listView, ObservableList<String> lista, TextField ingreso) {
@@ -349,6 +375,7 @@ public class ControladorAdministradorTerminal {
         else{
             abrirVentanaError("Selección inválida");
         }
+        return;
     }
 
 
@@ -368,12 +395,45 @@ public class ControladorAdministradorTerminal {
     }
 
 
-    public void abrirPestanaEmpresas(ObservableList<String> listaEmpresas){
+    public void abrirPestanaEmpresa(){
+        if(Controlador.terminal != null && !listaEmpresas.isEmpty()){
+            for (String nombreEmpresa : listaEmpresas) {
+                Empresa empresa = new Empresa(nombreEmpresa);
+                empresas.add(empresa);
+            }
+            Controlador.terminal.agregarEmpresas(empresas);
+            Controlador.serializarObjeto(Controlador.terminal, "src/recursos/archivos/terminal.txt");
+    
+            pestanaEmpresa.setDisable(false);
+            tabPane.getSelectionModel().select(pestanaEmpresa);
+            pestanaTerminal.setDisable(true);
+    
+        }
+        else{
+            abrirVentanaError("No se han ingresado datos");
+            return;
+        }
+    }
 
-        System.out.println("eee");
-        pestanaEmpresa.setDisable(false);
-        pestanaTerminal.setDisable(true);
-        tabPane.getSelectionModel().select(pestanaEmpresa);
+    public void abrirPestanaEmpresa2(){
+        if(Controlador.terminal != null && !listaEmpresas.isEmpty()){
+            for (String nombreEmpresa : listaEmpresas) {
+                Empresa empresa = new Empresa(nombreEmpresa);
+                empresas.add(empresa);
+            }
+            Controlador.terminal.agregarEmpresas(empresas);
+            Controlador.serializarObjeto(Controlador.terminal, "src/recursos/archivos/terminal.txt");
+    
+            pestanaEmpresa.setDisable(false);
+            tabPane.getSelectionModel().select(pestanaEmpresa);
+            pestanaTerminal.setDisable(true);
+    
+        }
+        else{
+            abrirVentanaError("No se han ingresado datos");
+            return;
+        }
+
 
     }
 

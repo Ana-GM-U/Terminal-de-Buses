@@ -190,8 +190,9 @@ public class ControladorAdministradorInicio {
             ventanaTerminal.initModality(Modality.APPLICATION_MODAL);
             ventanaTerminal.setTitle("Terminal");
             Stage stage = (Stage) rutCampo.getScene().getWindow();
-            stage.close();
             ventanaTerminal.showAndWait();
+            stage.close();
+            //ventanaTerminal.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

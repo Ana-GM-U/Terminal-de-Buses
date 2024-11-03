@@ -35,8 +35,12 @@ public class Terminal implements Serializable{
         colaEsperaSalida = new LinkedList<>();
     }
 
-    public void agregarCompania(Empresa compania) {
-        empresas.add(compania);
+    public void agregarEmpresas(List<Empresa> empresas) {
+        this.empresas = empresas;
+    }
+
+    public void agregarEmpresa(Empresa empresa) {
+        empresas.add(empresa);
     }
 
     public int getHoraApertura(){

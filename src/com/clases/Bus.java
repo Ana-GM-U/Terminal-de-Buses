@@ -31,14 +31,6 @@ public class Bus implements Serializable{
         return tiempoEstadia;
     }
 
-    public String getOrigen() {
-        return origen;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
     public int getCapacidad() {
         return capacidad;
     }

@@ -65,9 +65,14 @@ public class Controlador {
     @FXML
     private TableColumn<HorarioBus, String> horaSalidas;
 
+    static Terminal terminal = null;
 
     @FXML
     public void initialize() {
+        if(!estaVacio("src/recursos/archivos/terminal.txt")){
+            terminal = deserializarObjeto("src/recursos/archivos/terminal.txt");
+        }
+
         empresaComboBox.getItems().addAll("Compañía A", "Compañía B"); // Ejemplo de compañías
         tipoTablaComboBox.getItems().addAll("Horarios", "Andenes");
 
